@@ -1,0 +1,19 @@
+file = request.files['image']
+
+filename = file.filename
+filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+file.save(filepath)
+
+conn = sqlite3.connect('database.db')
+cur = conn.cursor()
+
+cur.execute(
+    "INSERT INTO workers (name, skill, village, lat, lon, image) VALUES (?, ?, ?, ?, ?, ?)",
+    (name, skill, village, lat, lon, filename)
+)
+
+conn.commit()
+conn.close()
+
+return "Worker Added Successfully!"

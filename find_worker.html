@@ -1,0 +1,48 @@
+<h2>🌾 Find Workers</h2>
+
+<form method="post">
+
+    Skill:
+    <select name="skill">
+        <option>ploughing</option>
+        <option>harvesting</option>
+        <option>spraying</option>
+        <option>repair</option>
+    </select><br><br>
+
+    Your Latitude: <input type="text" name="lat"><br><br>
+    Your Longitude: <input type="text" name="lon"><br><br>
+
+    <button type="submit">Search</button>
+</form>
+
+<hr>
+
+{% if results %}
+
+    <h3>Available Workers</h3>
+
+    {% for w in results %}
+    <div style="border:1px solid gray; padding:15px; margin:10px; width:300px; display:inline-block;">
+
+        <img src="/static/uploads/{{ w.image }}" width="150"><br>
+
+        <h3>{{ w.name }}</h3>
+
+        <p>🌾 Skill: {{ w.skill }}</p>
+        <p>🏡 Village: {{ w.village }}</p>
+        <p>📍 Distance: {{ w.distance }} km</p>
+
+        <p>📞 {{ w.phone }}</p>
+
+        <a href="https://wa.me/91{{ w.phone }}" target="_blank">
+            <button>💬 WhatsApp</button>
+        </a>
+
+    </div>
+    {% endfor %}
+
+{% endif %}
+
+<br>
+<a href="/">Back</a>
